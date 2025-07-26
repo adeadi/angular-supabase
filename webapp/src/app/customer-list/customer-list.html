@@ -1,0 +1,10 @@
+<h2>Customer List</h2>
+<ul *ngIf="customers.length; else loading">
+  <li *ngFor="let customer of customers">
+    <strong>{{ customer.name }}</strong>
+    <br />
+    ID: {{ customer.id }} |
+    Created: {{ customer.created_at }}
+  </li>
+</ul>
+<ng-template #loading>Loading...</ng-template>
