@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import {Router} from '@angular/router';
+import {KeycloakService} from '../services/keycloak.service';
 
 @Component({
   selector: 'app-pricing-plan',
@@ -9,10 +10,11 @@ import {Router} from '@angular/router';
 })
 export class PricingPlan {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router,
+              public keycloakService: KeycloakService) { }
 
   goToLogin(): void {
-    this.router.navigate(['/login']);
+    this.keycloakService.login();
   }
 
 }
