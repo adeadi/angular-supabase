@@ -10,7 +10,7 @@ import {Router} from '@angular/router';
 export class Landing {
   constructor(private router: Router) { }
 
-  goToLogin(): void {
-    this.router.navigate(['/login']);
+  navigateTo(route: string): void {
+    this.router.navigate([route]);
   }
 }
