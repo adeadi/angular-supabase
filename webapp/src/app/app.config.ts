@@ -23,10 +23,6 @@ export const appConfig: ApplicationConfig = {
 function keycloakInitializer() {
   return makeEnvironmentProviders([
     {
-      provide: KeycloakService,
-      useClass: KeycloakService
-    },
-    {
       provide: 'KEYCLOAK_INITIALIZER',
       useFactory: (keycloak: KeycloakService) => {
         return () => keycloak.init();
@@ -35,3 +31,4 @@ function keycloakInitializer() {
     }
   ]);
 }
+

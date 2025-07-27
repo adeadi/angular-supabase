@@ -1,4 +1,3 @@
-// src/app/auth/keycloak.service.ts
 import { Injectable } from '@angular/core';
 import Keycloak from 'keycloak-js';
 
@@ -11,9 +10,9 @@ export class KeycloakService {
   init(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.keycloak = new Keycloak({
-        url: 'http://localhost:8080/auth',
-        realm: 'your-realm',
-        clientId: 'your-client-id'
+        url: 'http://0.0.0.0:8080/auth',
+        realm: 'dev-realm',
+        clientId: 'kuala'
       });
 
       this.keycloak.init({
