@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import Keycloak from 'keycloak-js';
 
 @Injectable({
@@ -6,11 +6,12 @@ import Keycloak from 'keycloak-js';
 })
 export class KeycloakService {
   private keycloak!: Keycloak;
+  private isInitialized = false;
 
   init(): Promise<boolean> {
     return new Promise((resolve, reject) => {
       this.keycloak = new Keycloak({
-        url: 'http://0.0.0.0:8080/auth',
+        url: 'http://localhost:8080',
         realm: 'dev-realm',
         clientId: 'kuala'
       });
@@ -20,6 +21,7 @@ export class KeycloakService {
         checkLoginIframe: true,
         silentCheckSsoRedirectUri: window.location.origin + '/assets/silent-check-sso.html'
       }).then(authenticated => {
+        this.isInitialized = true;
         resolve(authenticated);
       }).catch(err => {
         reject(err);
@@ -28,11 +30,15 @@ export class KeycloakService {
   }
 
   login(): void {
+    if (!this.isInitialized) {
+      console.error('Keycloak not initialized. Please ensure init() is called and completed.');
+      return;
+    }
     this.keycloak.login();
   }
 
   logout(): void {
-    this.keycloak.logout({ redirectUri: window.location.origin });
+    this.keycloak.logout({redirectUri: window.location.origin});
   }
 
   isLoggedIn(): boolean {
