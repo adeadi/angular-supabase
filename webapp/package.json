@@ -6,7 +6,13 @@
     "start": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
-    "test": "ng test"
+    "test": "ng test",
+    "docker:build": "docker build -t webapp:latest .",
+    "docker:run": "docker-compose up",
+    "k8s:apply": "kubectl apply -R -f k8s/",
+    "k8s:delete": "kubectl delete -R -f k8s/",
+    "k8s:apply-dev": "kubectl apply -R -f k8s/ -n development",
+    "k8s:apply-prod": "kubectl apply -R -f k8s/ -n production"
   },
   "prettier": {
     "overrides": [

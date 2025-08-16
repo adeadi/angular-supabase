@@ -40,3 +40,21 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+
+# Docker
+.docker-compose.override.yml
+
+# Kubernetes
+k8s/**/*-secrets.yaml
+
+# Build artifacts
+dist/
+node_modules/
+
+# IDE
+.idea/
+.vscode/
+
+# Environment files
+.env
+.env.*

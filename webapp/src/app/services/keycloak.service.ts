@@ -2,6 +2,16 @@ import {Injectable} from '@angular/core';
 import {Router} from '@angular/router';
 import Keycloak from 'keycloak-js';
 
+declare global {
+  interface Window {
+    __env?: {
+      KEYCLOAK_URL?: string;
+      KEYCLOAK_REALM?: string;
+      KEYCLOAK_CLIENT_ID?: string;
+    };
+  }
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -12,13 +22,21 @@ export class KeycloakService {
   constructor(private router: Router) {
   }
 
+  private getEnv(key: keyof NonNullable<Window['__env']>, fallback?: string): string {
+    const value = window.__env?.[key] ?? fallback;
+    if (!value) {
+      console.error(`Missing runtime configuration for ${key}`);
+    }
+    return value ?? '';
+  }
+
   init(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      this.keycloak = new Keycloak({
-        url: 'http://localhost:8080',
-        realm: 'dev-realm',
-        clientId: 'kuala'
-      });
+      const url = this.getEnv('KEYCLOAK_URL', 'http://localhost:8080');
+      const realm = this.getEnv('KEYCLOAK_REALM', 'dev-realm');
+      const clientId = this.getEnv('KEYCLOAK_CLIENT_ID', 'kuala');
+
+      this.keycloak = new Keycloak({ url, realm, clientId });
 
       this.keycloak.init({
         onLoad: 'check-sso',
