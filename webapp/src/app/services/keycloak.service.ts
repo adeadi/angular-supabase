@@ -32,7 +32,7 @@ export class KeycloakService {
 
   init(): Promise<boolean> {
     return new Promise((resolve, reject) => {
-      const url = this.getEnv('KEYCLOAK_URL', 'http://localhost:8080');
+      const url = this.getEnv('KEYCLOAK_URL', 'http://localhost:30090');
       const realm = this.getEnv('KEYCLOAK_REALM', 'dev-realm');
       const clientId = this.getEnv('KEYCLOAK_CLIENT_ID', 'kuala');
 
@@ -61,7 +61,7 @@ export class KeycloakService {
     }
 
     this.keycloak.login({
-      redirectUri: window.location.origin + '/home'
+      redirectUri: window.location.origin + '/home/plan/'
     });
   }
 

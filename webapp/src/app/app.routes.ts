@@ -5,6 +5,7 @@ import {Register} from './register/register';
 import {PricingPlan} from './pricing-plan/pricing-plan';
 import {Home} from './home/home';
 import {AuthGuard} from './auth/auth.guard';
+import {Dashboard} from './dashboard/dashboard';
 
 export const routes: Routes = [
   { path: '', component: PricingPlan },
@@ -14,7 +15,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
     children: [
       { path: '', redirectTo: 'dashboard', pathMatch: 'full' },
-      { path: 'dashboard', component: Home },
+      { path: 'dashboard', component: Dashboard },
       { path: 'patients', component: CustomerList },
       { path: 'appointments', component: CustomerList }, // Replace with actual AppointmentComponent when created
       { path: 'profile', component: CustomerList }, // Replace with actual ProfileComponent when created
